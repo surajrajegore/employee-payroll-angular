@@ -1,0 +1,89 @@
+<app-header></app-header>
+<div class="main-content">
+  <div class="header-content">
+    <div class="emp-detail-text">
+      Employee Details <div class="emp-count">{{employeeCount}}</div>
+    </div>
+    <a class="add-button" routerLink="/add-user">
+      <img src="../assets/icons/add-24px.svg" alt="">Add Employee</a>
+  </div> <!-- header-content-->
+  <div class="table-main">
+    <table id ="table-display" class="table">
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Start Date</th>
+            <th>Actions</th>
+        </tr>
+      <!-- <tr>
+        <td>
+          <img class="profile" src="../assets/profile-images/Ellipse -1.png" alt="">
+        </td>
+        <td>Naina</td>
+        <td>Female</td>
+        <td> HR</td>
+        <td>1200000</td>
+        <td>16 Sept 2021</td>
+        <td>
+          <img id=1 src="../assets/icons/delete-black-18dp.svg" alt="delete">
+          &nbsp;
+          <img id=1 src="../assets/icons/create-black-18dp.svg" alt="edit">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img class="profile" src="../assets/profile-images/Ellipse -3.png" alt="">
+        </td>
+        <td>Sameer</td>
+        <td>Male</td>
+        <td> Engineer</td>
+        <td>6000000</td>
+        <td>11 Oct 2022</td>
+        <td>
+          <img id=1 src="../assets/icons/delete-black-18dp.svg" alt="delete">
+          &nbsp;
+          <img id=1 src="../assets/icons/create-black-18dp.svg" alt="edit">
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img class="profile" src="../assets/profile-images/Ellipse -2.png" alt="">
+        </td>
+        <td>Suraj</td>
+        <td>Male</td>
+        <td> Engineer</td>
+        <td>1700000</td>
+        <td>16 Sept 2022</td>
+        <td>
+          <img id=1 src="../assets/icons/delete-black-18dp.svg" alt="delete">
+          &nbsp;
+          <img id=1 src="../assets/icons/create-black-18dp.svg" alt="edit">
+        </td>
+      </tr> -->
+      <tr *ngFor="let employee of employeeDetails">
+        <td>
+            <img class="profile" src="{{employee.profilePic}}" alt="">
+        </td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.gender}}</td>
+        <td>
+            <div class="dept-label" *ngFor="let department of employee.department">
+                {{department}}
+            </div>
+        </td>
+        <td>{{employee.salary | currency:'INR'}}</td>
+        <td>{{employee.startDate | date: 'dd MMM yyyy'}}</td>
+        <td>
+            <img id={{employee.empId}} src="../assets/icons/delete-black-18dp.svg" alt="delete" (click)="remove(employee.empId)">
+            &nbsp;
+            <img id={{employee.empId}} src="../assets/icons/create-black-18dp.svg" alt="edit" (click)="update(employee)"> 
+        </td>
+    </tr>
+
+    </table>
+  </div>
+</div>
+<router-outlet></router-outlet>
