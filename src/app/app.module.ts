@@ -10,6 +10,7 @@ import { AddEmployeeComponent } from './component/add-employee/add-employee.comp
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    
+    HttpClientModule,
     ReactiveFormsModule, 
     AngularMaterialModule,
     

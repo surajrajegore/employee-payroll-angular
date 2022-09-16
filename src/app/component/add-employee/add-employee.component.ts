@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Employee } from 'src/app/model/employee';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { HttpService } from 'src/app/service/http.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-employee',
@@ -11,7 +13,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 export class AddEmployeeComponent implements OnInit {
 
   public employee: Employee = new Employee();
-  employeeFormGroup!  : FormGroup;
+  employeeFormGroup!: FormGroup;
 
   departments: Array<any> = [
     {
@@ -24,13 +26,13 @@ export class AddEmployeeComponent implements OnInit {
       id: 2,
       name: "Sales",
       value: "Sales",
-      checked: false 
+      checked: false
     },
     {
       id: 3,
       name: "Finance",
       value: "Finance",
-      checked: false  
+      checked: false
     },
     {
       id: 4,
@@ -42,12 +44,14 @@ export class AddEmployeeComponent implements OnInit {
       id: 5,
       name: "Other",
       value: "Other",
-      checked: false 
+      checked: false
     }
   ]
-  
 
-  constructor(private formBuilder: FormBuilder) {
+
+  constructor(private formBuilder: FormBuilder,
+              private httpService: HttpService,
+              private router: Router) {
     this.employeeFormGroup = this.formBuilder.group({
       name: new FormControl('', [Validators.required, Validators.pattern("^[A-Z][a-zA-Z\\s]{2,}$")]),
       profilePic: new FormControl('', [Validators.required]),
@@ -55,7 +59,7 @@ export class AddEmployeeComponent implements OnInit {
       department: this.formBuilder.array([], []),
       salary: new FormControl('', []),
       startDate: new FormControl('', []),
-      note: new FormControl('', []) 
+      note: new FormControl('', [])
     })
   }
 
@@ -79,10 +83,14 @@ export class AddEmployeeComponent implements OnInit {
 
   onSubmit(){
     this.employee = this.employeeFormGroup.value;
-    console.log(this.employeeFormGroup);
+    // console.log(this.employeeFormGroup);
     console.log(this.employee);
+    this.httpService.addEmployeeData(this.employee).subscribe(response => {
+    console.log(response);
+    this.router.navigateByUrl("/home-page");
+    });
   }
 
-  
+
 
 }
